@@ -1,3 +1,6 @@
+-- You can copy all the code IN the shell AND press ENTER
+-- (if you don't have the base named 'new' of course)
+
 DROP DATABASE IF EXISTS new;
 CREATE DATABASE new; USE new;
 
