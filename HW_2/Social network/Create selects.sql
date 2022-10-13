@@ -34,6 +34,10 @@ INNER JOIN comments c ON u.id_user=c.user_id
 INNER JOIN photos p ON p.id_photo=c.photo_id
 WHERE id_creater=1;
 
+-- Who comented on the Darya comment? And what did he write?
+SELECT CONCAT(u.firstname, ' ', u.lastname) AS 'User', c1.text_area AS 'Comment' FROM users u
+INNER JOIN comments c1 ON u.id_user=c1.user_id
+INNER JOIN comments c2 ON c1.comment_id=c2.id_comment
+WHERE c2.user_id=5;
 
-
-
+-- Music

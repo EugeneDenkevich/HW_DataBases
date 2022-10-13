@@ -49,9 +49,9 @@ VALUES
 (2, 4, 1, 1, "I'm not.");
 
 INSERT INTO comments
-(comment_id, user_id, photo_id, text_area)
+(id_comment, user_id, photo_id, text_area)
 VALUES
-(3, 5, 1, "You're look wery cool!");
+(3, 5, 1, "You look wery cool!");
 
 INSERT INTO ganres
 (ganre_id, ganre)
