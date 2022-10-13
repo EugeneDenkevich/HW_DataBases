@@ -1,4 +1,7 @@
 -- Creating all the tables
+DROP DATABASE IF EXISTS social_network;
+CREATE DATABASE social_network;
+USE social_network;
 
 CREATE TABLE user_data (
 id_data INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
