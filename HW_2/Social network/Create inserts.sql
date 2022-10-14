@@ -1,24 +1,23 @@
 -- Fill in all the tables
-
 INSERT INTO user_data
-(id_data, day_of_birth, gender)
+(id_data, firstname, lastname, rate, day_of_birth, gender)
 VALUES
-(1, '1991-01-24', 'male'),
-(2, '1991-04-14', 'male'),
-(3, '1991-09-18', 'male'),
-(4, '1991-02-26', 'male'),
-(5, '1991-01-24', 'female'),
-(6, '1991-02-03', 'male');
+(1, 'Eugene', 'Denkevich', 100, '1991-01-24', 'male'),
+(2, 'Maxim', 'Novik', 100, '1991-04-14', 'male'),
+(3, 'Ivan', 'Gvizdocsky', 100, '1991-09-18', 'male'),
+(4, 'Leonid', 'Borushko', 100, '1991-02-26', 'male'),
+(5, 'Darya', 'Alshevskaya', 100, '1991-01-24', 'female'),
+(6, 'Evgeny', 'Shoshin', 10, '1991-02-03', 'male');
 
 INSERT INTO users
-(id_user, firstname, lastname, login, password_hash, rate, data_id)
+(id_user, login, password_hash, data_id)
 VALUES
-(1, 'Eugene', 'Denkevich', 'Bison', 'Medrab123', 100, 1),
-(2, 'Maxim', 'Novik', 'MAD MAX', 'Koleno41234', 100, 2),
-(3, 'Ivan', 'Gvizdocsky', 'Polyak', 'Belarus1', 100, 3),
-(4, 'Leonid', 'Borushko', 'Lavin', 'Minsk000', 100, 4),
-(5, 'Darya', 'Alshevskaya', 'Krasotka', 'Kudri007', 100, 5),
-(6, 'Evgeny', 'Shoshin', 'Bandit', 'Karate-pacan_666', 10, 6);
+(1, 'Bison', 'Medrab123', 1),
+(2, 'MAD MAX', 'Koleno41234', 2),
+(3, 'Polyak', 'Belarus1', 3),
+(4, 'Lavin', 'Minsk000', 4),
+(5, 'Krasotka', 'Kudri007', 5),
+(6, 'Bandit', 'Karate-pacan_666', 6);
 
 INSERT INTO posts
 (id_post, user_id, text_area)

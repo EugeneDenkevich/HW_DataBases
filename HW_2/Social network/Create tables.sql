@@ -5,17 +5,17 @@ USE social_network;
 
 CREATE TABLE user_data (
 id_data INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+firstname varchar(50) DEFAULT NULL,
+lastname varchar(50) DEFAULT NULL,
 day_of_birth DATE,
-gender ENUM('male', 'female')
+gender ENUM('male', 'female'),
+rate INT
 );
 
 CREATE TABLE users (
 id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-firstname varchar(50) DEFAULT NULL,
-lastname varchar(50) DEFAULT NULL,
 login VARCHAR(25) NOT NULL UNIQUE,
 password_hash VARCHAR(50) NOT NULL,
-rate INT,
 data_id INT UNIQUE,
 FOREIGN KEY (data_id) REFERENCES user_data (id_data)
 );
@@ -42,12 +42,13 @@ id_uhp INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 photo_id INT,
 user_id INT,
 FOREIGN KEY (photo_id) REFERENCES photos (id_photo),
-FOREIGN KEY (user_id) REFERENCES users (id_user)
+FOREIGN KEY (user_id) REFERENCES users (id_user),
+UNIQUE (photo_id, user_id)
 );
 
 CREATE TABLE comments (
 id_comment INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-user_id INT,
+user_id INT NOT NULL,
 post_id INT,
 photo_id INT,
 comment_id INT,
