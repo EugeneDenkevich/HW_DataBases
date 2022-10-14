@@ -11,7 +11,7 @@ SELECT COUNT(gender) AS 'Total girls' FROM user_data WHERE gender='female';
 -- Login and passwords?
 SELECT CONCAT(ud.firstname, ' ', ud.lastname) AS 'User', u.login AS 'Login', u.password_hash AS 'Password'
 FROM users u
-INNER JOIN user_data
+INNER JOIN user_data ud
 ON u.data_id=ud.id_data;
 
 -- What is the rating of the person who added the first photo?
