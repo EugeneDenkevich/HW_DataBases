@@ -7,6 +7,11 @@ id_sup INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 sup_name VARCHAR(100)
 );
 
+CREATE TABLE department (
+id_dep INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE prod_data (
 id_data INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 prod_name VARCHAR(100),
@@ -15,7 +20,9 @@ price_pcs DECIMAL(4,2),
 count_kg DECIMAL(6,2),
 count_pcs DECIMAL(6,2),
 sup_id INT,
-FOREIGN KEY (sup_id) REFERENCES suplier (id_sup) 
+dep_id INT,
+FOREIGN KEY (sup_id) REFERENCES suplier (id_sup),
+FOREIGN KEY (dep_id) REFERENCES department (id_dep)
 );
 
 CREATE TABLE product (
