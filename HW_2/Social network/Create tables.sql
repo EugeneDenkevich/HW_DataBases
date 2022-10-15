@@ -17,9 +17,7 @@ id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 login VARCHAR(25) NOT NULL UNIQUE,
 password_hash VARCHAR(50) NOT NULL,
 data_id INT UNIQUE,
-like_id INT,
-FOREIGN KEY (data_id) REFERENCES user_data (id_data),
-FOREIGN KEY (like_id) REFERENCES like_it (id_like)
+FOREIGN KEY (data_id) REFERENCES user_data (id_data)
 );
 
 CREATE TABLE posts (
@@ -89,4 +87,16 @@ id_music INT NOT NULL,
 FOREIGN KEY (id_user) REFERENCES users (id_user),
 FOREIGN KEY (id_music) REFERENCES music (id_track),
 UNIQUE (id_user, id_music)
+);
+
+CREATE TABLE like_it (
+id_like INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+user_id INT,
+photo_id INT,
+comment_id INT,
+FOREIGN KEY (user_id) REFERENCES users (id_user),
+FOREIGN KEY (photo_id) REFERENCES photos (id_photo),
+FOREIGN KEY (comment_id) REFERENCES comments (id_comment),
+UNIQUE (user_id, photo_id),
+UNIQUE (user_id, comment_id)
 );
