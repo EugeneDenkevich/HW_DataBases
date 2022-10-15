@@ -17,7 +17,9 @@ id_user int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 login VARCHAR(25) NOT NULL UNIQUE,
 password_hash VARCHAR(50) NOT NULL,
 data_id INT UNIQUE,
-FOREIGN KEY (data_id) REFERENCES user_data (id_data)
+like_id INT,
+FOREIGN KEY (data_id) REFERENCES user_data (id_data),
+FOREIGN KEY (like_id) REFERENCES like_it (id_like)
 );
 
 CREATE TABLE posts (
