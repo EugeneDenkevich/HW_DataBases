@@ -25,16 +25,3 @@ added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (data_id) REFERENCES prod_data (id_data)
 );
 
-CREATE TABLE like_it (
-id_like INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-user_id INT,
-photo_id INT,
-comment_id INT,
-FOREIGN KEY (user_id) REFERENCES users (id_user),
-FOREIGN KEY (photo_id) REFERENCES photos (id_photo),
-FOREIGN KEY (comment_id) REFERENCES comments (id_comment),
-UNIQUE (user_id, photo_id),
-UNIQUE (user_id, comment_id)
-);
-
-
