@@ -1,13 +1,12 @@
--- 1. It's almost correct. =)
-WITH t1 AS (SELECT CONCAT(b.firstname, ' ', b.lastname) AS 'Buyer', 
-pr.price, pr.product_name AS Product
-FROM buyer b
-LEFT JOIN purchase p ON p.buyer_id=b.id_buyer
-LEFT JOIN product pr ON pr.id_product=p.product_id)
+-- 1. It work correctly and show that It must show. But it was realy difficult.
+WITH t1 AS (SELECT id_buyer, firstname, lastname, MAX(price) AS prices, product_name FROM product pr
+INNER JOIN purchase p ON pr.id_product=p.product_id
+INNER JOIN buyer b ON b.id_buyer=p.buyer_id
+GROUP BY id_buyer, firstname, lastname)
 
-SELECT Buyer, Product, MAX(price) FROM t1
-WHERE price IN (SELECT MAX(price) FROM t1 GROUP BY Buyer)
-GROUP BY Buyer;
+SELECT CONCAT(firstname, ' ', lastname) AS Buyer, p2.product_name AS Product FROM t1
+INNER JOIN product p2 ON p2.price=t1.prices
+ORDER BY firstname, lastname;
 
 -- 2.
 SELECT CONCAT(b.firstname, ' ', b.lastname) AS 'Buyer',
