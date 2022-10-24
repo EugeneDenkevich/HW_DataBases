@@ -1,11 +1,12 @@
--- 1. It work correctly and show that It must show. But it was realy difficult.
-WITH t1 AS (SELECT id_buyer, firstname, lastname, MAX(price) AS prices, product_name FROM product pr
+-- 1.
+WITH t1 AS (SELECT firstname, lastname, MAX(price) AS prices FROM product pr
 INNER JOIN purchase p ON pr.id_product=p.product_id
 INNER JOIN buyer b ON b.id_buyer=p.buyer_id
-GROUP BY id_buyer, firstname, lastname)
+GROUP BY id_buyer)
 
-SELECT CONCAT(firstname, ' ', lastname) AS Buyer, p2.product_name AS Product FROM t1
-INNER JOIN product p2 ON p2.price=t1.prices
+SELECT CONCAT(firstname, ' ', lastname) AS Buyer, p2.product_name AS "Max price product"
+FROM t1, product p2
+WHERE p2.price=t1.prices
 ORDER BY firstname, lastname;
 
 -- 2.
