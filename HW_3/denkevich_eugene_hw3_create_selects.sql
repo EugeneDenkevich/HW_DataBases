@@ -1,4 +1,4 @@
--- 1.
+-- 1. It's almost correct. =)
 WITH t1 AS (SELECT CONCAT(b.firstname, ' ', b.lastname) AS 'Buyer', 
 pr.price, pr.product_name AS Product
 FROM buyer b
