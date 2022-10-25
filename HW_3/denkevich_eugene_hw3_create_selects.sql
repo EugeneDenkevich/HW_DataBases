@@ -1,4 +1,4 @@
--- 1.
+-- 1. Before watching lesson11
 WITH t1 AS (SELECT firstname, lastname, MAX(price) AS prices FROM product pr
 INNER JOIN purchase p ON pr.id_product=p.product_id
 INNER JOIN buyer b ON b.id_buyer=p.buyer_id
@@ -8,6 +8,21 @@ SELECT CONCAT(firstname, ' ', lastname) AS Buyer, p2.product_name AS "Max price 
 FROM t1, product p2
 WHERE p2.price=t1.prices
 ORDER BY firstname, lastname;
+
+-- 1. Corrected after watching lesson11
+WITH t1 AS (SELECT firstname, lastname, MAX(price) AS prices FROM product pr
+INNER JOIN purchase p ON pr.id_product=p.product_id
+INNER JOIN buyer b ON b.id_buyer=p.buyer_id
+GROUP BY id_buyer),
+t2 AS (SELECT firstname, lastname, price AS prices,
+category_name AS Category, product_name AS Product FROM product pr
+INNER JOIN purchase p ON pr.id_product=p.product_id
+INNER JOIN buyer b ON b.id_buyer=p.buyer_id
+INNER JOIN category c ON pr.category_id=c.id_category)
+
+SELECT t1.firstname, t1.lastname, t1.prices, t2.Product, t2.Category
+FROM t1, t2
+WHERE t1.prices=t2.prices AND t1.firstname=t2.firstname AND t1.lastname=t2.lastname;
 
 -- 2.
 SELECT CONCAT(b.firstname, ' ', b.lastname) AS 'Buyer',
@@ -70,7 +85,6 @@ WHERE buyer_id IS NULL;
 -- 10.
 WITH t1 AS (
 SELECT category_name AS Category, price AS Price FROM product pr
-INNER JOIN purchase p ON p.product_id=pr.id_product
 INNER JOIN category c ON c.id_category=pr.category_id
 )
 

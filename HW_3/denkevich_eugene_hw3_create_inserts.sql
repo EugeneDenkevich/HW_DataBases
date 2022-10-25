@@ -21,7 +21,10 @@ INSERT INTO product (id_product, product_name, price, category_id) VALUES
 (12, 'Cake', 1350.12, 5),
 (13, 'Pie', 459.51, 5),
 (14, 'Oranges', 165.89, 1),
-(15, "Hamster's food", 1459.51, 6);
+(15, "Hamster's food", 1459.51, 6),
+(16, 'Mandarin', 128.90, 1),
+(17, 'Beetroot', 124.12, 2),
+(18, 'Cherry pie', 459.51, 5);
 
 INSERT INTO buyer (id_buyer, firstname, lastname) VALUES
 (1, 'Eugene', 'Denkevich'),
@@ -71,4 +74,5 @@ INSERT INTO purchase (id_order, buyer_id, product_id) VALUES
 (33, 5, 7),
 (34, 4, 2),
 (35, 4, 2),
-(36, 3, 3);
+(36, 3, 3),
+(37, 6, 18);
