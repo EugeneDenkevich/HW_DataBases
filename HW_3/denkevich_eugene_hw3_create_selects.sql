@@ -10,19 +10,23 @@ WHERE p2.price=t1.prices
 ORDER BY firstname, lastname;
 
 -- 1. Corrected after watching lesson11
-WITH t1 AS (SELECT firstname, lastname, MAX(price) AS prices FROM product pr
+WITH t1 AS (SELECT firstname, lastname, MAX(price) AS prices, c.category_name AS Category FROM product pr
 INNER JOIN purchase p ON pr.id_product=p.product_id
 INNER JOIN buyer b ON b.id_buyer=p.buyer_id
-GROUP BY id_buyer),
+INNER JOIN category c ON pr.category_id=c.id_category
+GROUP BY id_buyer, Category),
 t2 AS (SELECT firstname, lastname, price AS prices,
 category_name AS Category, product_name AS Product FROM product pr
 INNER JOIN purchase p ON pr.id_product=p.product_id
 INNER JOIN buyer b ON b.id_buyer=p.buyer_id
 INNER JOIN category c ON pr.category_id=c.id_category)
 
-SELECT t1.firstname, t1.lastname, t1.prices, t2.Product, t2.Category
-FROM t1, t2
-WHERE t1.prices=t2.prices AND t1.firstname=t2.firstname AND t1.lastname=t2.lastname;
+SELECT DISTINCT t2.firstname, t2.lastname, t2.prices, t2.Product, t2.Category FROM t2
+WHERE EXISTS
+(SELECT t1.firstname, t1.lastname, t1.prices FROM t1
+WHERE t1.prices=t2.prices AND t1.firstname=t2.firstname
+AND t1.lastname=t2.lastname AND t1.Category=t2.Category)
+ORDER BY t2.firstname, t2.lastname, t2.Category;
 
 -- 2.
 SELECT CONCAT(b.firstname, ' ', b.lastname) AS 'Buyer',
