@@ -4,4 +4,5 @@ There I implemented a simple database of grocery store and that contains tables 
 
 In a separate file which is called "create_selects.sql" you can see some indexes, views, triggers and procedures wich I created specialy to show how can I use it.
 
+PS: run all the files in this sequence: "create_table.sql", "create_inserts.sql". File "create_selects.sql" need optionally: if you've liked some trigger or procedure - just run it!
 Enjoy! =)
