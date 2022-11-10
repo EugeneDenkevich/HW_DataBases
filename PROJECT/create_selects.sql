@@ -125,6 +125,15 @@
     -- 11. Find a client by email. Use view find_client_by_email.
     
 		SELECT * FROM find_client_by_email WHERE Email='ivanivan@mail.com';
+        
+	-- 12. And some transaction in the end for a full picture.
+    
+		-- Decrement a quantity of cucumbers.
+		START TRANSACTION;
+			SELECT prod_name AS Product, quantity AS Quantity FROM prod_data;
+			UPDATE prod_data SET quantity=quantity-1 WHERE prod_name='Cucumbers';
+			SELECT prod_name AS Product, quantity AS Quantity FROM prod_data;
+		COMMIT;
 
 
 -- That's all. Thank's for attention! =)

@@ -18,7 +18,7 @@ CREATE TABLE prod_data (
 id_data INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 prod_name VARCHAR(100),
 price DECIMAL(10,2),
-quantity INT,
+quantity INT UNSIGNED,
 sup_id INT,
 dep_id INT,
 FOREIGN KEY (sup_id) REFERENCES suplier (id_sup),
