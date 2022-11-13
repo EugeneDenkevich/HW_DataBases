@@ -14,23 +14,23 @@ name VARCHAR(100) NOT NULL
 )
 ENGINE = InnoDB;
 
-CREATE TABLE prod_data (
-id_data INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE product (
+id_product INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 prod_name VARCHAR(100),
 price DECIMAL(10,2),
 quantity INT UNSIGNED,
-sup_id INT,
-dep_id INT,
-FOREIGN KEY (sup_id) REFERENCES suplier (id_sup),
-FOREIGN KEY (dep_id) REFERENCES department (id_dep)
+added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 ENGINE = InnoDB;
 
-CREATE TABLE product (
-id_product INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-data_id INT UNIQUE,
-added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (data_id) REFERENCES prod_data (id_data)
+CREATE TABLE product_additional (
+id_prod_add INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+prod_id INT UNIQUE,
+sup_id INT,
+dep_id INT,
+FOREIGN KEY (prod_id) REFERENCES product (id_product),
+FOREIGN KEY (sup_id) REFERENCES suplier (id_sup),
+FOREIGN KEY (dep_id) REFERENCES department (id_dep)
 )
 ENGINE = InnoDB;
 

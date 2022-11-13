@@ -10,7 +10,7 @@
     
 		SELECT * FROM interesting_information;
 	
-    -- 3. Let's check what do we have for the present for Helen Horovez. Use triggers check_product_count and stop_update_purchase:
+    -- 3. Let's check what do we have at the moment for Helen Horovez. Use triggers check_product_count and stop_update_purchase:
     
 		SELECT * FROM total_products WHERE Client='Helen Horovez'; /* If you get an empty table try to create and fiil tables again. */ 
     
@@ -36,12 +36,15 @@
         /* No cookies for Helen */
 		
 		-- If Eugene Alhovik will try to trick us so it's a quite normal.
+        -- check before
+		SELECT * FROM total_products WHERE Client='Eugene Alhovik';
+        -- then update
 		UPDATE purchase SET product_id=11
 		WHERE client_id=(SELECT DISTINCT id_client FROM client
 		WHERE firstname='Eugene' AND lastname='Alhovik')
 		LIMIT 1;
 		
-		-- If this person bought something - now it has changed to "cookie"
+		-- Add now somthing has changed to "cookie"
 		SELECT * FROM total_products WHERE Client='Eugene Alhovik';
 			
 		-- But we can't allowed to Helen to do it! We created a procedure stop_update_purchase for this case.
@@ -80,7 +83,7 @@
 	--    so let's insert him into an additional table. Use a trigger save_deleted_client:    
        
 		-- Checking...
-		SELECT * FROM total_products;
+		SELECT * FROM total_products ORDER BY Client;
 		SELECT * FROM deleted_client;
 		
 		-- Make some delete-magick...
@@ -105,12 +108,12 @@
     
     -- Assign the result of this function to a varible
 		CALL get_number_of_purchased_product('Potatoes', @num);
-		-- And display it =D
+		-- And display it
 		SELECT @num;
     
     -- 9. Assign the discount to a particular client. Use a procedure set_discount.
     
-		-- Set 100% discount to Eugene Denkevich (why not? you can set that number you want)
+		-- Set 100% discount to Maxim Novik (why not? you can set that number you want)
 		CALL set_discount('Maxim Novik', 100);
         
 		-- Check if it works. If you deleted this client before, just create everything again.
@@ -130,9 +133,9 @@
     
 		-- Decrement a quantity of cucumbers.
 		START TRANSACTION;
-			SELECT prod_name AS Product, quantity AS Quantity FROM prod_data;
-			UPDATE prod_data SET quantity=quantity-1 WHERE prod_name='Cucumbers';
-			SELECT prod_name AS Product, quantity AS Quantity FROM prod_data;
+			SELECT prod_name AS Product, quantity AS Quantity FROM product;
+			UPDATE product SET quantity=quantity-1 WHERE prod_name='Cucumbers';
+			SELECT prod_name AS Product, quantity AS Quantity FROM product;
 		COMMIT;
 
 

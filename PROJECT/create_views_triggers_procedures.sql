@@ -12,10 +12,9 @@
     CREATE OR REPLACE ALGORITHM = TEMPTABLE VIEW total_products
 	AS
 	SELECT CONCAT(firstname, ' ', lastname) AS Client, Product, COUNT(Product) AS Count
-	FROM (SELECT c.id_client, c.firstname, c.lastname, pd.prod_name AS Product FROM client c
+	FROM (SELECT c.firstname, c.lastname, pr.prod_name AS Product FROM client c
 	INNER JOIN purchase p ON p.client_id=c.id_client
-	INNER JOIN product pr ON p.product_id=pr.id_product
-	INNER JOIN prod_data pd ON pd.id_data=pr.data_id) main_table
+	INNER JOIN product pr ON p.product_id=pr.id_product) main_table
 	GROUP BY Client, Product;
     
     CREATE OR REPLACE VIEW interesting_information
@@ -85,11 +84,10 @@
     CREATE PROCEDURE get_cliets_who_bought_product_some_number_of_times (pr_nm VARCHAR(100))
     BEGIN
 		SELECT CONCAT(firstname, ' ', lastname) AS 'Client who bought...', pr_nm AS '...this product...',
-        COUNT(pd.prod_name) AS '...this number of times' FROM client c
+        COUNT(pr.prod_name) AS '...this number of times' FROM client c
         INNER JOIN purchase p ON p.client_id=c.id_client
         INNER JOIN product pr ON pr.id_product=p.product_id
-        INNER JOIN prod_data pd ON pd.id_data=pr.data_id
-        WHERE pd.prod_name = pr_nm
+        WHERE pr.prod_name = pr_nm
         GROUP BY c.id_client;
 	END $$
     DELIMITER ;
@@ -126,11 +124,10 @@
     DELIMITER $$
     CREATE PROCEDURE get_number_of_purchased_product(IN prod_nm VARCHAR(100), OUT number INT)
     BEGIN
-		SET number = (SELECT COUNT(pr.prod_name) FROM prod_data pr
-					INNER JOIN product p ON p.data_id=pr.id_data
+		SET number = (SELECT COUNT(p.prod_name) FROM product p
                     INNER JOIN purchase pur ON pur.product_id=p.id_product
                     INNER JOIN client c ON c.id_client=pur.client_id
-                    WHERE pr.prod_name = prod_nm);
+                    WHERE p.prod_name = prod_nm);
 	END $$
     DELIMITER ;
     
@@ -144,8 +141,10 @@
     DELIMITER $$
     CREATE PROCEDURE where_prod(IN name_pr VARCHAR(100))
     BEGIN
-		SELECT name_pr AS Product, name AS "Department's name" FROM department INNER JOIN prod_data ON dep_id=id_dep WHERE prod_name=name_pr LIMIT 1;
+		SELECT name_pr AS Product, name AS "Department's name" FROM department
+        INNER JOIN product_additional ON dep_id=id_dep
+        INNER JOIN product ON id_product=prod_id
+        WHERE prod_name=name_pr LIMIT 1;
     END $$
     DELIMITER ;
-    
     
