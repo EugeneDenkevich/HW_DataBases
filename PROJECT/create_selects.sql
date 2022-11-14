@@ -4,7 +4,7 @@
 	
 	-- 1. Who bought what and how much? Use view total_products.
 	
-		SELECT * FROM total_products;
+		SELECT * FROM total_products ORDER BY Client;
 
 	-- 2. Some interesting information. Use view interesting_information
     
@@ -24,7 +24,7 @@
 		-- Checking after:
 		SELECT * FROM total_products WHERE Client='Helen Horovez';
 		
-		-- But now she try to do some forbidden. As you remember we forbit Helen to buy cookies by procedure check_product_count.
+		-- But now she try to do some forbidden. As you remember we forbit Helen to buy cookies by trigger check_product.
 		INSERT INTO purchase
 		(client_id, product_id)
 		VALUES

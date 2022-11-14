@@ -31,7 +31,7 @@
     -- TRIGGERS:
     
     DELIMITER $$
-	CREATE TRIGGER check_product_count
+	CREATE TRIGGER check_product
 	BEFORE INSERT
 	ON purchase
 	FOR EACH ROW
@@ -113,10 +113,12 @@
 			SELECT CONCAT(firstname, ' ', lastname) AS Client, discount_percent AS Discount FROM client
             WHERE discount_percent = 20;
             
-		WHEN disc > 20
+		WHEN disc = 100
         THEN
-			SELECT CONCAT(firstname, ' ', lastname) AS Client, discount_percent AS Discount, 'Lucky you!' FROM client
-            WHERE discount_percent > 20;
+			SELECT CONCAT(firstname, ' ', lastname) AS Client, 'Lucky you!' FROM client
+            WHERE discount_percent = 100;
+		ELSE
+			SELECT 'There are no client whith such a discount' AS Error;
 		END CASE;
     END //
     DELIMITER ;
